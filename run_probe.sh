@@ -10,12 +10,18 @@
 # Usage:
 #   ./run_probe.sh
 #   CODAG_DRAIN_BIN=/path/to/codag-drain ./run_probe.sh
+#   PRESERVE_HIGH_SEVERITY=1 ./run_probe.sh   # run with the proposed fix on
 
 set -euo pipefail
 
 CODAG_DRAIN_BIN="${CODAG_DRAIN_BIN:-codag-drain}"
 PYTHON_BIN="${PYTHON_BIN:-python3}"
 OUT_DIR="out"
+DRAIN_ARGS="--format json"
+if [ "${PRESERVE_HIGH_SEVERITY:-0}" = "1" ]; then
+  DRAIN_ARGS="$DRAIN_ARGS --preserve-high-severity"
+  echo ">>> rare critical preservation enabled"
+fi
 
 if ! command -v "$CODAG_DRAIN_BIN" >/dev/null 2>&1; then
   echo "error: $CODAG_DRAIN_BIN not found." >&2
@@ -33,10 +39,10 @@ echo ">>> generating logs"
 "$PYTHON_BIN" generate_logs.py
 
 echo ">>> compressing retry_storm.log"
-"$CODAG_DRAIN_BIN" --format json < logs/retry_storm.log > "$OUT_DIR/retry_storm.codag.json"
+"$CODAG_DRAIN_BIN" $DRAIN_ARGS < logs/retry_storm.log > "$OUT_DIR/retry_storm.codag.json"
 
 echo ">>> compressing tool_needle.log"
-"$CODAG_DRAIN_BIN" --format json < logs/tool_needle.log > "$OUT_DIR/tool_needle.codag.json"
+"$CODAG_DRAIN_BIN" $DRAIN_ARGS < logs/tool_needle.log > "$OUT_DIR/tool_needle.codag.json"
 
 echo ">>> verifying"
 "$PYTHON_BIN" verify.py | tee results.txt
