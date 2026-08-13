@@ -20,5 +20,8 @@ Both rare lines survive as their own `count=1` template with full text and a cit
 CODAG_DRAIN_BIN=/path/to/codag-drain ./run_probe.sh
 ```
 
+**Proposed fix**
+`PROPOSED_FIX.md` — a severity-aware two-lane clustering patch for `codag-drain` ("Rare Critical Preservation") that keeps rare CRITICAL/ERROR lines from folding into dominant templates at masked slot positions, with validation.
+
 **Limitations**
 Preliminary probe, not a correctness audit. Two handcrafted cases. Covers the open-source deterministic engine behind `codag wrap`, not Codag Pro inference. See `notes/verification.md` for the observed mechanism boundary (a line that differs only at already-masked slot positions folds into the dominant template).
