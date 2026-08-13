@@ -1,0 +1,9 @@
+# generated probe data
+logs/
+out/
+
+# python
+__pycache__/
+
+# keep results.txt tracked
+!results.txt

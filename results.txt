@@ -1,0 +1,22 @@
+case: retry_storm
+original size: 1997931 bytes / 20001 lines
+compressed size: 1361 bytes / 2 groups
+compression: 10000x lines, 1468x bytes
+recovery mechanism: group membership + per-group sample line indexes (samples[].index / first_index) in codag-drain --format json
+rare line index cited: True (line 1-based 20001)
+rare line kept as own group: True
+recovered signals: needle, error, status, tool, level
+lost signals: none
+final observation: RECOVERED
+
+case: tool_needle
+original size: 1479013 bytes / 20001 lines
+compressed size: 1727 bytes / 3 groups
+compression: 6667x lines, 856x bytes
+recovery mechanism: group membership + per-group sample line indexes (samples[].index / first_index) in codag-drain --format json
+rare line index cited: True (line 1-based 20001)
+rare line kept as own group: True
+recovered signals: needle, error, status, level
+lost signals: none
+final observation: RECOVERED
+
